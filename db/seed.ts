@@ -1,4 +1,4 @@
-import { db, Comment } from 'astro:db';
+//import { db, Comment } from 'astro:db';
 
 //export default async function() {
 //  await db.insert(Comment).values([

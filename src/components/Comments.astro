@@ -1,0 +1,60 @@
+---
+import { db, Comment } from 'astro:db';
+
+if (Astro.request.method === 'POST') {
+  // parse form data
+  const formData = await Astro.request.formData();
+  const author = formData.get('author');
+  const body = formData.get('body');
+  if (typeof author === 'string' && typeof body === 'string') {
+    // insert form data into the Comment table
+    await db.insert(Comment).values({ author, body});
+  }
+}
+
+// render the new list of comments on each request
+const comments = await db.select().from(Comment);
+
+---
+
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
+<h2>Insert data to the form then it will store to turso db</h2>
+
+<form method="POST" style="display: grid">
+  <label for="author">Author</label>
+  <input id="author" name="author" />
+
+  <label for="body">Content</label>
+  <textarea id="body" name="body"></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
+
+
+<!--render `comments`-->
+
+<h2>Comments</h2>
+
+    <table>
+          <thead>
+      <tr>
+        <td>author</td>
+        <td>body</td>
+      </tr>
+
+          </thead>
+          <tbody>
+{
+  comments.map(({ author, body }) => (
+      <tr>
+        <td>{author}</td>
+        <td>{body}</td>
+      </tr>
+  ))
+}
+      </tbody>
+    </table>
+
+

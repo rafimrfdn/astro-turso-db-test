@@ -1,8 +1,8 @@
-import { db, Comment } from 'astro:db';
+//import { db, Comment } from 'astro:db';
 
-export default async function() {
-  await db.insert(Comment).values([
-    { author: 1, body: 'Hope you like Astro DB!' },
-  ])
-}
+//export default async function() {
+//  await db.insert(Comment).values([
+//    { author: 1, body: 'Hope you like Astro DB!' },
+//  ])
+//}
 
